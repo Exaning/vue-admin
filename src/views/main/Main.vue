@@ -61,10 +61,7 @@
         <el-main>Main</el-main>
       </el-container>
     </el-container>
-    <div>this is code of mainView</div>
-    <div>this is code of mainView</div>
-    <div>this is code of mainView</div>
-    <div>this is code of mainView</div>
+    <p>这是 mainView 上的新代码，我将要把他们提交到远程的 mainView 分支上</p>
   </div>
 </template>
 
