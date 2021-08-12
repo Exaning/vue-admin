@@ -58,7 +58,7 @@
             </el-menu-item>
           </el-menu>
         </el-aside>
-        <el-main>MainPanel</el-main>
+        <el-main>Main</el-main>
       </el-container>
     </el-container>
   </div>
