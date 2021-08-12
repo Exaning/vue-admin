@@ -61,6 +61,7 @@
         <el-main>Main</el-main>
       </el-container>
     </el-container>
+    <div>this is code of mainView</div>
   </div>
 </template>
 
