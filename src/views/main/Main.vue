@@ -61,10 +61,8 @@
         <el-main>Main</el-main>
       </el-container>
     </el-container>
-    <p>
-      这是 mainView 上的新旧代码，我将要把他们修改并再次提交到远程的 mainView
-      分支上
-    </p>
+    <p>这是 mainView 上的新代码，我将要把他们提交到远程的 mainView 分支上</p>
+    <p>这是 mainView 上的新代码，我将要把他们提交到远程的 mainView 分支上</p>
   </div>
 </template>
 
