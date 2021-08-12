@@ -51,7 +51,7 @@
               <span slot="title">添加客户</span>
             </el-menu-item>
 
-            <!--  -->
+            <!-- 数据分析 -->
             <el-menu-item index="3">
               <i class="el-icon-data-analysis"></i>
               <span slot="title">数据分析</span>
@@ -61,6 +61,9 @@
         <el-main>Main</el-main>
       </el-container>
     </el-container>
+    <div>this is code of mainView</div>
+    <div>this is code of mainView</div>
+    <div>this is code of mainView</div>
     <div>this is code of mainView</div>
   </div>
 </template>
