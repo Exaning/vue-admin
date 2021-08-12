@@ -63,6 +63,10 @@
     </el-container>
     <p>这是 mainView 上的新代码，我将要把他们提交到远程的 mainView 分支上</p>
     <p>这是 mainView 上的新代码，我将要把他们提交到远程的 mainView 分支上</p>
+    <p>
+      这是 mainView 上的新代码，我将要使用 VSCode 的 git 插件把他们提交到远程的
+      mainView 分支上
+    </p>
   </div>
 </template>
 
