@@ -85,7 +85,7 @@
               if (res.data.code == 200) {
                 window.sessionStorage.setItem("token", res.data.token);
                 this.$message.success("登陆成功！");
-                this.$router.push("/main");
+                this.$router.push("/home");
               } else {
                 this.$message.error("用户名或密码错误！");
               }

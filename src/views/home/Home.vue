@@ -58,7 +58,9 @@
             </el-menu-item>
           </el-menu>
         </el-aside>
-        <el-main>Main</el-main>
+        <el-main>
+          <Welcome></Welcome>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -70,6 +72,9 @@
       return {
         isCollapse: false,
       };
+    },
+    components: {
+      Welcome: () => import("../../components/welcome/Welcome.vue"),
     },
     methods: {
       // 退出登录
