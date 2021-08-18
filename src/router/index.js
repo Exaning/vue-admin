@@ -6,7 +6,14 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    redirect: "/login",
+    beforeEnter: (to, from, next) => {
+      let token = window.localStorage.getItem("token");
+      if (token) {
+        return next("/home");
+      } else {
+        return next("/login");
+      }
+    },
   },
   {
     path: "/login",
@@ -17,6 +24,13 @@ const routes = [
     path: "/home",
     name: "Home",
     component: () => import("@/views/home/Home.vue"),
+    children: [
+      {
+        path: "/welcome",
+        name: "Welcome",
+        component: () => import("@/components/welcome/Welcome.vue"),
+      },
+    ],
   },
 ];
 
@@ -33,7 +47,7 @@ router.beforeEach((to, from, next) => {
   }
 
   // token 验证
-  let token = window.sessionStorage.getItem("token");
+  let token = window.localStorage.getItem("token");
   if (!token) {
     return next({ path: "/login" });
   } else {

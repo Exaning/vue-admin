@@ -79,7 +79,7 @@
     methods: {
       // 退出登录
       logOut() {
-        window.sessionStorage.removeItem("token");
+        window.localStorage.removeItem("token");
         this.$message.success("退出成功");
         this.$router.push("/");
       },

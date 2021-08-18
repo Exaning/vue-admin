@@ -83,7 +83,7 @@
             // 提交信息
             loginAxios(this.loginForm).then((res) => {
               if (res.data.code == 200) {
-                window.sessionStorage.setItem("token", res.data.token);
+                window.localStorage.setItem("token", res.data.token);
                 this.$message.success("登陆成功！");
                 this.$router.push("/home");
               } else {
