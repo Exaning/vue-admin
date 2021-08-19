@@ -23,12 +23,28 @@ const routes = [
   {
     path: "/home",
     name: "Home",
+    redirect: "/welcome",
     component: () => import("@/views/home/Home.vue"),
     children: [
       {
         path: "/welcome",
         name: "Welcome",
-        component: () => import("@/components/welcome/Welcome.vue"),
+        component: () => import("@/views/home/welcome/Welcome.vue"),
+      },
+      {
+        path: "/users",
+        name: "Users",
+        component: () => import("@/views/home/users/Users.vue"),
+      },
+      {
+        path: "/adduser",
+        name: "AddUser",
+        component: () => import("@/views/home/addUser/AddUser.vue"),
+      },
+      {
+        path: "/userdata",
+        name: "UserData",
+        component: () => import("@/views/home/userData/UserData.vue"),
       },
     ],
   },

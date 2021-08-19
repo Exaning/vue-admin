@@ -3,7 +3,7 @@
     <el-container>
       <el-header>
         <div class="logo">
-          <img src="../../assets/images/logo2.png" alt="" />
+          <img src="../../assets/images/logo2.png" @click="goHome" />
           <div class="text">数据分析 · 管理系统</div>
         </div>
 
@@ -29,10 +29,9 @@
           </div>
           <!-- </el-tooltip> -->
           <el-menu
-            default-active="1"
+            :default-active="activeRoute"
+            :router="true"
             class="el-menu-vertical-demo"
-            @open="handleOpen"
-            @close="handleClose"
             background-color="#304156"
             text-color="rgba(255, 255, 255, 0.6)"
             active-text-color="#ffd04b"
@@ -40,26 +39,27 @@
             :collapse-transition="false"
           >
             <!-- 意向用户 -->
-            <el-menu-item index="1">
+            <el-menu-item index="users">
               <i class="el-icon-coin"></i>
               <span slot="title">意向用户</span>
             </el-menu-item>
 
             <!-- 添加客户 -->
-            <el-menu-item index="2">
+            <el-menu-item index="adduser">
               <i class="el-icon-user"></i>
               <span slot="title">添加客户</span>
             </el-menu-item>
 
             <!-- 数据分析 -->
-            <el-menu-item index="3">
+            <el-menu-item index="userdata">
               <i class="el-icon-data-analysis"></i>
               <span slot="title">数据分析</span>
             </el-menu-item>
           </el-menu>
         </el-aside>
         <el-main>
-          <Welcome></Welcome>
+          <!-- <Welcome /> -->
+          <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -71,10 +71,17 @@
     data() {
       return {
         isCollapse: false,
+        activeRoute: "",
       };
     },
-    components: {
-      Welcome: () => import("../../components/welcome/Welcome.vue"),
+    // components: {
+    //   Welcome: () => import("../../components/welcome/Welcome.vue"),
+    // },
+    watch: {
+      $route(to) {
+        this.activeRoute = to.path.slice(1);
+        // console.log(this.activeRoute);
+      },
     },
     methods: {
       // 退出登录
@@ -83,15 +90,12 @@
         this.$message.success("退出成功");
         this.$router.push("/");
       },
-      handleOpen(key, keyPath) {
-        // console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        // console.log(key, keyPath);
-      },
       // 菜单的折叠与展开
       menuCollapse() {
         this.isCollapse = !this.isCollapse;
+      },
+      goHome() {
+        this.$router.push("/welcome");
       },
     },
   };
@@ -114,6 +118,7 @@
       img {
         display: block;
         height: 75%;
+        cursor: pointer;
       }
       .text {
         font-size: 26px;

@@ -55,7 +55,7 @@
 </template>
 
 <script>
-  import { weatherData } from "../../network/api";
+  import { weatherData } from "@/network/api";
   export default {
     created() {
       let weather = JSON.parse(window.localStorage.getItem("weather"));
@@ -96,7 +96,7 @@
 
       // 天气图标
       weatherIcon(value = 0) {
-        return require("../../assets/images/weatherIcon/W" + value + ".png");
+        return require("@/assets/images/weatherIcon/W" + value + ".png");
       },
 
       // 获取天气数据
