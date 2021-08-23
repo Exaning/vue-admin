@@ -3,6 +3,13 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
+const Login = () => import("@/views/login/Login.vue");
+const Home = () => import("@/views/home/Home.vue");
+const Welcome = () => import("@/views/home/components/welcome/Welcome.vue");
+const Users = () => import("@/views/home/components/users/Users.vue");
+const AddUser = () => import("@/views/home/components/addUser/AddUser.vue");
+const UserData = () => import("@/views/home/components/userData/UserData.vue");
+
 const routes = [
   {
     path: "/",
@@ -18,33 +25,33 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    component: () => import("@/views/login/Login.vue"),
+    component: Login,
   },
   {
     path: "/home",
     name: "Home",
     redirect: "/welcome",
-    component: () => import("@/views/home/Home.vue"),
+    component: Home,
     children: [
       {
         path: "/welcome",
         name: "Welcome",
-        component: () => import("@/views/home/welcome/Welcome.vue"),
+        component: Welcome,
       },
       {
         path: "/users",
         name: "Users",
-        component: () => import("@/views/home/users/Users.vue"),
+        component: Users,
       },
       {
         path: "/adduser",
         name: "AddUser",
-        component: () => import("@/views/home/addUser/AddUser.vue"),
+        component: AddUser,
       },
       {
         path: "/userdata",
         name: "UserData",
-        component: () => import("@/views/home/userData/UserData.vue"),
+        component: UserData,
       },
     ],
   },
@@ -62,9 +69,19 @@ router.beforeEach((to, from, next) => {
     return next();
   }
 
-  // token 验证
   let token = window.localStorage.getItem("token");
+  // 登录时间
+  let loginTime = window.localStorage.getItem("loginTime");
+  // 一天的毫秒数
+  let oneDay = 1000 * 60 * 60 * 24;
+  // let oneDay = 1000 * 10;
+  // 时间间隔
+  let timeGap = Date.now() - loginTime;
+  // token 验证
   if (!token) {
+    return next({ path: "/login" });
+  } else if (timeGap > oneDay) {
+    window.localStorage.clear();
     return next({ path: "/login" });
   } else {
     return next();

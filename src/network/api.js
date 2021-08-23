@@ -14,3 +14,11 @@ export function weatherData(params) {
     url: "/tianqi3day.php",
   });
 }
+
+// 意向客户数据
+export function allUsers(params) {
+  return request({
+    url: "/yxList.php",
+    params,
+  });
+}

@@ -11,6 +11,7 @@
           :rules="loginRules"
           label-width="120px"
           status-icon
+          @keyup.enter.native="onSubmit"
         >
           <el-form-item label="用户名：" prop="username">
             <el-input
@@ -84,6 +85,7 @@
             loginAxios(this.loginForm).then((res) => {
               if (res.data.code == 200) {
                 window.localStorage.setItem("token", res.data.token);
+                window.localStorage.setItem("loginTime", Date.now());
                 this.$message.success("登陆成功！");
                 this.$router.push("/home");
               } else {

@@ -15,7 +15,7 @@
           </el-popconfirm>
         </div>
       </el-header>
-      <el-container>
+      <el-container class="homeContent">
         <el-aside :width="isCollapse ? '64px' : '200px'">
           <!-- <el-tooltip
             class="item"
@@ -70,7 +70,7 @@
   export default {
     data() {
       return {
-        isCollapse: false,
+        isCollapse: true,
         activeRoute: "",
       };
     },
@@ -86,9 +86,9 @@
     methods: {
       // 退出登录
       logOut() {
-        window.localStorage.removeItem("token");
+        window.localStorage.clear();
         this.$message.success("退出成功");
-        this.$router.push("/");
+        this.$router.push("/login");
       },
       // 菜单的折叠与展开
       menuCollapse() {
@@ -155,5 +155,9 @@
   .el-container {
     background-color: #f8f8f8;
     height: 100%;
+  }
+
+  .homeContent {
+    height: calc(100% - 60px);
   }
 </style>
