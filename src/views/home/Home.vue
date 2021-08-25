@@ -71,16 +71,13 @@
     data() {
       return {
         isCollapse: true,
-        activeRoute: "",
+        activeRoute: window.location.hash.slice(2),
       };
     },
-    // components: {
-    //   Welcome: () => import("../../components/welcome/Welcome.vue"),
-    // },
+    // 监听路由状态，激活菜单
     watch: {
-      $route(to) {
-        this.activeRoute = to.path.slice(1);
-        // console.log(this.activeRoute);
+      $route() {
+        this.activeRoute = window.location.hash.slice(2);
       },
     },
     methods: {
@@ -94,6 +91,7 @@
       menuCollapse() {
         this.isCollapse = !this.isCollapse;
       },
+      // 回到主页
       goHome() {
         this.$router.push("/welcome");
       },

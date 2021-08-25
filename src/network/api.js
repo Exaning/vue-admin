@@ -16,9 +16,17 @@ export function weatherData(params) {
 }
 
 // 意向客户数据
-export function allUsers(params) {
+export function yxList(params) {
   return request({
     url: "/yxList.php",
+    params,
+  });
+}
+
+// 删除一条意向用户数据
+export function yxDelRow(params) {
+  return request({
+    url: "/yxDelRow.php",
     params,
   });
 }

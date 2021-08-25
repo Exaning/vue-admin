@@ -7,7 +7,7 @@
           <el-input
             v-model="keyword"
             placeholder="请输入关键字"
-            @keyup.enter.native="searchUser"
+            @change="searchUser"
           >
           </el-input>
         </el-col>
@@ -51,14 +51,26 @@
         </el-table-column>
         <!-- 操作按钮 -->
         <el-table-column label="操作" align="center">
-          <el-tooltip effect="dark" content="编辑" placement="top">
-            <el-button type="primary" icon="el-icon-edit" size="mini">
-            </el-button>
-          </el-tooltip>
-          <el-tooltip effect="dark" content="删除" placement="top">
-            <el-button type="danger" icon="el-icon-delete" size="mini">
-            </el-button>
-          </el-tooltip>
+          <template slot-scope="scope">
+            <el-tooltip effect="dark" content="编辑" placement="top">
+              <el-button
+                type="primary"
+                icon="el-icon-edit"
+                size="mini"
+                @click="editUserInfo(scope.row.id)"
+              >
+              </el-button>
+            </el-tooltip>
+            <el-tooltip effect="dark" content="删除" placement="top">
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                size="mini"
+                @click="deleteUser(scope.row.id)"
+              >
+              </el-button>
+            </el-tooltip>
+          </template>
         </el-table-column>
       </el-table>
     </el-card>
@@ -80,7 +92,7 @@
 </template>
 
 <script>
-  import { allUsers } from "@/network/api";
+  import { yxList, yxDelRow } from "@/network/api";
   import { timeStampFormat } from "@/assets/js/common";
 
   export default {
@@ -96,7 +108,7 @@
         // 当前页码
         currentPage: 1,
         // 每页数据条数
-        pageSize: 0,
+        pageSize: 20,
         // 数据总数
         totalNum: 0,
       };
@@ -109,7 +121,7 @@
           page: this.currentPage,
           keyword: this.keyword,
         };
-        allUsers(params).then((res) => {
+        yxList(params).then((res) => {
           // console.log(res.data.results);
           this.userData = res.data.results;
           this.totalNum = res.data.num;
@@ -138,6 +150,42 @@
       // 搜索
       searchUser() {
         this.getAllUsersData();
+      },
+
+      // 删除用户
+      deleteUser(id) {
+        let param = { id };
+        // 确认删除弹框
+        this.$confirm("此操作将永久删除该用户数据, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
+          .then(() => {
+            // 删除用户信息的接口
+            yxDelRow(param).then((res) => {
+              if (res.data.code && res.status == 200) {
+                this.$message({
+                  type: "success",
+                  message: "删除成功!",
+                });
+                setTimeout(() => {
+                  this.$router.go(0);
+                }, 1500);
+              }
+            });
+          })
+          .catch(() => {
+            // this.$message({
+            //   type: "info",
+            //   message: "已取消删除",
+            // });
+          });
+      },
+
+      // 编辑用户信息
+      editUserInfo(id) {
+        console.log(id);
       },
     },
   };
