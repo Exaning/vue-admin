@@ -30,3 +30,10 @@ export function yxDelRow(params) {
     params,
   });
 }
+
+// 客服数据
+export function yxLoad() {
+  return request({
+    url: "/yxLoad.php",
+  });
+}
