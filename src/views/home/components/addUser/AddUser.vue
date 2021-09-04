@@ -52,7 +52,32 @@
               <el-input v-model="addUserForm.weixin"></el-input>
             </el-form-item>
 
-            <!-- 微信号 -->
+            <!-- 咨询专业 -->
+            <el-form-item label="咨询专业：" prop="zhuanye">
+              <el-input
+                placeholder="请输入专业简述"
+                v-model="addUserForm.zhuanye"
+                class="input-with-select"
+              >
+                <el-select
+                  v-model="addUserForm.infoclass"
+                  slot="prepend"
+                  placeholder="请选择专业"
+                  class="major-selector"
+                  clearable
+                >
+                  <el-option
+                    v-for="item in majorOptions"
+                    :key="item.id"
+                    :label="item.classname"
+                    :value="item.classname"
+                  >
+                  </el-option>
+                </el-select>
+              </el-input>
+            </el-form-item>
+
+            <!-- 信息来源 -->
             <el-form-item
               label="信息来源："
               prop="laiyuan"
@@ -62,36 +87,23 @@
             </el-form-item>
 
             <!-- 地址 -->
-            <el-form-item
-              label="所在地区："
-              prop="laiyuan"
-              placeholder="请输入所在地区"
-            >
+            <el-form-item label="所在地区：" placeholder="请输入所在地区">
               <el-input v-model="addUserForm.dizhi"></el-input>
             </el-form-item>
 
-            <!-- 咨询专业 -->
-            <el-form-item label="咨询专业：">
-              <el-select v-model="majorValue" placeholder="请选择专业">
-                <el-option
-                  v-for="item in majorOptions"
-                  :key="item.id"
-                  :label="item.classname"
-                  :value="item.classname"
-                  multiple
-                >
-                </el-option>
-              </el-select>
-            </el-form-item>
-
-            <el-form-item label="客服：">
-              <el-select v-model="customServiceValue" placeholder="请选择客服">
+            <!-- 选择客服 -->
+            <el-form-item label="客服：" prop="kefu">
+              <el-select
+                v-model="addUserForm.kefu"
+                placeholder="请选择客服"
+                multiple
+                clearable
+              >
                 <el-option
                   v-for="item in customServiceOptions"
                   :key="item.id"
                   :label="item.classname"
                   :value="item.classname"
-                  multiple
                 >
                 </el-option>
               </el-select>
@@ -118,7 +130,10 @@
           qq: "",
           weixin: "",
           laiyuan: "",
+          zhuanye: "",
+          infoclass: "",
           dizhi: "",
+          kefu: [],
         },
         // 客户信息校验规则
         addUserRules: {
@@ -136,11 +151,26 @@
           laiyuan: [
             { required: true, message: "信息来源为必填项！", trigger: "blur" },
           ],
+          // 专业
+          zhuanye: [
+            { required: true, message: "专业为必填项！", trigger: "blur" },
+          ],
+          // 专业
+          infoclass: [
+            { required: true, message: "专业简述为必填项！", trigger: "blur" },
+          ],
+          // 客服
+          kefu: [
+            {
+              type: "array",
+              required: true,
+              message: "请至少选择一个客服",
+              trigger: "change",
+            },
+          ],
         },
         // 专业数据
-        majorOptions: {},
-        // 专业值
-        majorValue: "",
+        majorOptions: [],
         // 客服数据
         customServiceOptions: [],
         // 被选中客服值
@@ -152,6 +182,7 @@
       getCustomService() {
         yxLoad().then((res) => {
           if (res.status == 200) {
+            // console.log(res.data);
             this.customServiceOptions = res.data.kefu;
             this.majorOptions = res.data.infoclass;
           }
@@ -173,5 +204,13 @@
   .main-form {
     margin-top: 30px;
     padding: 30px 0;
+  }
+
+  .major-selector {
+    width: 140px;
+  }
+
+  .el-form-item {
+    padding-bottom: 20px;
   }
 </style>
