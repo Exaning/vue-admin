@@ -108,6 +108,26 @@
                 </el-option>
               </el-select>
             </el-form-item>
+
+            <el-divider></el-divider>
+
+            <!-- 按钮组 -->
+            <el-form-item>
+              <div class="btn-container">
+                <el-row :gutter="20">
+                  <el-col :span="8">
+                    <el-button type="primary" :style="btnStyle">
+                      确认提交
+                    </el-button>
+                  </el-col>
+                  <el-col :span="2">
+                    <el-button type="warning" plain :style="btnStyle">
+                      重置
+                    </el-button>
+                  </el-col>
+                </el-row>
+              </div>
+            </el-form-item>
           </el-form>
         </el-col>
       </el-row>
@@ -175,6 +195,10 @@
         customServiceOptions: [],
         // 被选中客服值
         customServiceValue: "",
+        btnStyle: {
+          width: "100%",
+          height: "50px",
+        },
       };
     },
     methods: {
@@ -212,5 +236,9 @@
 
   .el-form-item {
     padding-bottom: 20px;
+  }
+
+  .btn-container {
+    padding-top: 20px;
   }
 </style>
