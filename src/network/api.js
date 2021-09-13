@@ -37,3 +37,19 @@ export function yxLoad() {
     url: "/yxLoad.php",
   });
 }
+
+// 添加新客户
+export function yxAdd(params) {
+  return request({
+    url: "/yxAdd.php",
+    params,
+  });
+}
+
+// 客户信息是否重复的验证
+export function yxValidate(params) {
+  return request({
+    url: "/yxValidate.php",
+    params,
+  });
+}

@@ -150,65 +150,17 @@
 </template>
 
 <script>
-  import { yxLoad, yxAdd, yxValidate } from "@/network/api";
-  import { timeStampFormat } from "@/assets/js/common.js";
+  // 接口
+  import { yxLoad, yxAdd } from "@/network/api";
+  // 重复信息校验
+  import { validate_repeat_info } from "@/assets/js/validator";
+
   export default {
     created() {
       // 获取客服数据
       this.getCustomService();
     },
     data() {
-      // 重复信息校验
-      var validate_repeat_info = (rule, value, callback) => {
-        if (value == "") {
-          return callback();
-        } else if (!/^[1][3,4,5,7,8,9][0-9]{9}$/.test(value)) {
-          return callback(new Error(`${rule.field}号码格式错误！`));
-        } else {
-          // 发送请求，验证用户是否存在
-          yxValidate({ keyword: value, field: "contact" }).then((res) => {
-            if (res.data.code == 200) {
-              return callback();
-            } else {
-              var username = res.data.content.nickname;
-              var postTime = timeStampFormat(res.data.content.posttime);
-              // 信息填写区
-              var field;
-              // 警告信息
-              var warning_txt;
-              // 格式化警告信息
-              if (rule.field == "contact") {
-                field = "联系电话";
-              } else if (rule.field == "qq") {
-                field = "QQ号";
-              } else {
-                field = "微信号";
-              }
-              warning_txt = `
-                <span style="font-weight: bold;color: #409eff;"> ${field} </span>
-                为
-                <span style="font-weight: bold;color: #409eff;"> ${value} </span>
-                的用户已存在<br />
-                用户名为：
-                <span style="font-weight: bold;color: #409eff;"> ${username} </span><br />
-                录入时间为
-                <span style="font-weight: bold;color: #409eff;"> ${postTime} </span><br />
-                请勿重复提交！
-              `;
-              this.$confirm(warning_txt, {
-                type: "warning",
-                showConfirmButton: false,
-                showCancelButton: false,
-                // 编译 warning_txt 中的 html&css
-                dangerouslyUseHTMLString: true,
-              }).catch(() => {
-                return;
-              });
-              return callback(new Error("该用户已存在！"));
-            }
-          });
-        }
-      };
       return {
         // 表单初始数据
         addUserForm: {
@@ -309,6 +261,7 @@
               if (res.data.code == "200" && res.status == 200) {
                 this.$message.success("用户信息录入成功");
                 this.onReset();
+                this.$router.push("/users");
               } else {
                 this.$message.error("用户信息录入失败，请重试....");
               }

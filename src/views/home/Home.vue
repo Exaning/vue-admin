@@ -87,10 +87,12 @@
         this.$message.success("退出成功");
         this.$router.push("/login");
       },
+
       // 菜单的折叠与展开
       menuCollapse() {
         this.isCollapse = !this.isCollapse;
       },
+
       // 回到主页
       goHome() {
         this.$router.push("/welcome");
