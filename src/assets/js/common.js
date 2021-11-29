@@ -1,4 +1,4 @@
-// 时间戳格式化
+/* 时间戳格式化 */
 export function timeStampFormat(value, type = 0) {
   var time = new Date(value * 1000);
   var year = time.getFullYear();

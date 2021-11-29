@@ -19,6 +19,9 @@
       </el-row>
     </el-card>
 
+    <!-- 点击【编辑】时弹出的对话框 -->
+    <DialogCmpnt ref="Dialog" />
+
     <!-- 表格 -->
     <el-card shadow="always">
       <el-table :data="userData" style="width: 100%" stripe border>
@@ -49,7 +52,7 @@
         </el-table-column>
         <el-table-column align="center" prop="dizhi" label="所在地">
         </el-table-column>
-        <!-- 操作按钮 -->
+        <!-- 操作按钮组 -->
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-tooltip effect="dark" content="编辑" placement="top">
@@ -99,6 +102,10 @@
     created() {
       this.getAllUsersData();
     },
+    components: {
+      // 模态框
+      DialogCmpnt: () => import("@/components/DialogCmpnt"),
+    },
     data() {
       return {
         // 关键字
@@ -116,11 +123,13 @@
     methods: {
       // 获取所有用户数据
       getAllUsersData() {
+        // 参数
         let params = {
           num: this.pageSize,
           page: this.currentPage,
           keyword: this.keyword,
         };
+        // 请求
         yxList(params).then((res) => {
           // console.log(res.data.results);
           this.userData = res.data.results;
@@ -176,6 +185,7 @@
             });
           })
           .catch(() => {
+            // 按个人偏好取消注释或注释
             // this.$message({
             //   type: "info",
             //   message: "已取消删除",
@@ -185,7 +195,10 @@
 
       // 编辑用户信息
       editUserInfo(id) {
-        console.log(id);
+        // 弹出修改框(模态框组件)
+        this.$refs.Dialog.showDialog = true;
+        this.$refs.Dialog.id = id;
+        this.$refs.Dialog.getUserData(); // 第一种方法：父组件调用子组件的方法
       },
     },
   };

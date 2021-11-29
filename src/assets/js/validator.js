@@ -2,10 +2,24 @@ import { vue } from "@/main.js";
 import { yxValidate } from "@/network/api";
 import { timeStampFormat } from "@/assets/js/common.js";
 
+// 校验信息是否重复
 export var validate_repeat_info = (rule, value, callback) => {
   var field = rule.field;
+  // 获取缓存记录
+  var userData = window.localStorage.getItem("userData");
+  // 解析缓存
+  var userData = JSON.parse(userData);
   if (value == "") {
     return callback();
+  } else if (userData) {
+    // 输入的信息和缓存都不为空时，相互比较，校验是否重复
+    if (field == "contact" && userData.contact == value) {
+      return callback();
+    } else if (field == "qq" && userData.contact == value) {
+      return callback();
+    } else if (field == "qq" && userData.contact == value) {
+      return callback();
+    }
   } else {
     // 校验输入的信息不为空时是否重复
     // 实参：输入信息类型、信息内容、回调函数
@@ -40,7 +54,7 @@ function validate_info(which_field, value, callback) {
       if (!/^[a-zA-Z]([-_a-zA-Z0-9]{6,20})$/.test(value)) {
         return callback(new Error(`微信号码格式错误！`));
       } else {
-        infoValidation(dataObj, callback);
+        dataObj, callback;
       }
       break;
   }
@@ -52,11 +66,11 @@ function validate_info(which_field, value, callback) {
 function infoValidation(form_item_data, callback) {
   yxValidate(form_item_data).then((res) => {
     if (res.data.code == 200) {
-      console.log(res);
+      // console.log(res);
       // 用户不存在，可以继续填写其余信息
       return callback();
     } else {
-      console.log(res);
+      // console.log(res);
       // 重复录入的用户名
       var username = res.data.content.nickname;
       // 格式化时间戳

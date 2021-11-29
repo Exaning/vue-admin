@@ -1,9 +1,10 @@
 <template>
   <div class="homeView">
     <el-container>
+      <!-- <CommonHeader /> -->
       <el-header>
         <div class="logo">
-          <img src="../../assets/images/logo2.png" @click="goHome" />
+          <img src="@/assets/images/logo2.png" @click="goHome" />
           <div class="text">数据分析 · 管理系统</div>
         </div>
 
@@ -51,7 +52,7 @@
             </el-menu-item>
 
             <!-- 数据分析 -->
-            <el-menu-item index="userdata">
+            <el-menu-item index="userdetail">
               <i class="el-icon-data-analysis"></i>
               <span slot="title">数据分析</span>
             </el-menu-item>
@@ -67,7 +68,13 @@
 </template>
 
 <script>
+  // 公共头部组件
+  // import CommonHeader from "@/components/CommonHeader.vue";
+
   export default {
+    components: {
+      // CommonHeader,
+    },
     data() {
       return {
         isCollapse: true,

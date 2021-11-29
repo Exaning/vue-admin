@@ -53,3 +53,20 @@ export function yxValidate(params) {
     params,
   });
 }
+
+// 查询单个客户的数据
+export function yxRow(params) {
+  // console.log(params);  // {id: xxx}
+  return request({
+    url: "/yxRow.php",
+    params, // {id: xxx}
+  });
+}
+
+// 修改某一个用户的数据
+export function yxUpdata(params) {
+  return request({
+    url: "/yxUpdata.php",
+    params,
+  });
+}

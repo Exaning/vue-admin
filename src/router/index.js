@@ -7,10 +7,9 @@ const Login = () => import("@/views/login/Login.vue");
 const Home = () => import("@/views/home/Home.vue");
 const Welcome = () => import("@/views/home/components/welcome/Welcome.vue");
 const Users = () => import("@/views/home/components/users/Users.vue");
-// const AddUser = () => import("@/views/home/components/addUser/AddUser.vue");
-const AddUser = () =>
-  import("@/views/home/components/addUser/AddUser_copy.vue");
-const UserData = () => import("@/views/home/components/userData/UserData.vue");
+const AddUser = () => import("@/views/home/components/addUser/AddUser.vue");
+const UserDetail = () =>
+  import("@/views/home/components/userDetail/UserDetail.vue");
 
 const routes = [
   {
@@ -51,9 +50,9 @@ const routes = [
         component: AddUser,
       },
       {
-        path: "/userdata",
-        name: "UserData",
-        component: UserData,
+        path: "/userdetail",
+        name: "UserDetail",
+        component: UserDetail,
       },
     ],
   },
